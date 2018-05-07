@@ -65,16 +65,15 @@ import org.openqa.selenium.WebElement;
 	 Login login;
 	
  
-
 	 @Given("^User is on application Home Page$")
 	 public void user_is_on_application_Home_Page() throws Throwable , InterruptedException, IOException {
 	  
 	 // PropertyFileReader.property();
 	 // System.setProperty(PropertyFileReader.getChrome(),PropertyFileReader.getChromePath());
 	  /*System.setProperty(chrome,ChromePath);--PropertyFileREader.java
-	   * System.setProperty(webdriver.chrome.driver,D\://chromedriver.exe)--from the Config.properties file */
+	   * System.setProperty(webdriver.chrome.driver,D\://chromedriver.exe)--from the Config.properties file 
 	  
-	 // System.setProperty(PropertyFileReader.getPath(),PropertyFileReader.getHappypathSheet());
+	 // System.setProperty(PropertyFileReader.getPath(),PropertyFileReader.getHappypathSheet());*/
 		 webDriverManager=new WebDriverManager(); 
 		driver=webDriverManager.getDriver();
 		 driver.manage().window().maximize();
@@ -91,7 +90,7 @@ import org.openqa.selenium.WebElement;
 	  //driver.navigate().to(PropertyFileReader.getURL());
 	  //https\://test.cdduk.kycnet.com/
 	  Thread.sleep(5000);
-  }
+  } 
   
   
   
