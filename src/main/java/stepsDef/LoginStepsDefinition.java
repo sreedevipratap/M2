@@ -6,17 +6,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import dataProvider.ConfigFileReader;
-
-
 import managers.PageObjectManager;
 import managers.WebDriverManager;
-
-
-
 import pages.Login;
-
-
-
 
 import java.io.IOException;
 
@@ -105,10 +97,17 @@ import org.openqa.selenium.WebElement;
   
 	 @When("^User enters valid username \"([^\"]*)\" and password \"([^\"]*)\"$")
 	 public void user_enters_valid_username_and_password(String uname, String pwd) throws Throwable {
- 		   	    
- 		    driver.findElement(By.id("user_name")).sendKeys(uname);
+ 		 
+		 login.enter_userName(uname);
+		 login.enter_password(pwd);
+		 login.click_login();
+		 
+		 
+ 		    /*driver.findElement(By.id("user_name")).sendKeys(uname);
  		    driver.findElement(By.id("user_pass")).sendKeys(pwd);
- 		    driver.findElement(By.xpath("//button[@id ='loginButton']")).click();
+ 		    driver.findElement(By.xpath("//button[@id ='loginButton']")).click();*/
+		 
+		 
  	 /* String parameter = uname.concat(",").concat(pwd);
  	  System.out.println(parameter);
  	  LoginPage loginpage=new LoginPage(driver, Report, Test);
@@ -120,41 +119,28 @@ import org.openqa.selenium.WebElement;
   @Then("^User should be able to login successfully$")
 	public void user_should_be_able_to_login_successfully() throws Throwable {
 	  Thread.sleep(1000);
-		String str = driver.findElement(By.xpath("//*[@id=\"mineReviews\"]/h2")).getText();
-		String stractual = "My reviews";
-		Assert.assertEquals(str, stractual);
-		driver.findElement(By.xpath("//a[@href='/users/logout/']")).click();
-		//driver.findElement(By.xpath("/html/body/div[1]/div/div[2]/div[1]/ul/li[4]/a")).click();
+	  
+        String header = login.homePage_headerText();  
+		//String str = driver.findElement(By.xpath("//*[@id=\"mineReviews\"]/h2")).getText();
+		String headeractual = "My reviews";
+		Assert.assertEquals(header, headeractual);
+		login.click_logout();
+		//driver.findElement(By.xpath("//a[@href='/users/logout/']")).click();
+	
 	}
 	
-  @Given("^The user is on the application login page$")
-  public void the_user_is_on_the_application_login_page() throws Throwable {
-     String str = driver.getTitle().toString();
-     System.out.println("ssssssss:"+str);
+  @When("^User enters invalid username \"([^\"]*)\" and password \"([^\"]*)\"$")
+  public void user_enters_invalid_username_and_password(String uname, String pwd) throws Throwable {
+	  login.enter_userName(uname);
+		 login.enter_password(pwd);
+		 login.click_login();
   }
-	@When("^I enter invalid username \"([^\"]*)\" and password \"([^\"]*)\"$")
-	public void i_enter_invalid_username_and_password(String uname, String pwd) throws Throwable {
-		 Thread.sleep(3000);
-				 driver.findElement(By.id("user_name")).sendKeys(uname);
-		    driver.findElement(By.id("user_pass")).sendKeys(pwd);
-		    driver.findElement(By.xpath("//button[@id ='loginButton']")).click();
-		//loginpage.loginUser(uname,pwd);
-		
-	}
 
 	@Then("^User should not be able to login successfully$")
 	public void user_should_not_be_able_to_login_successfully() throws Throwable {
 		 String str = driver.findElement(By.xpath("/html/body/div[2]/div/div[1]/div")).getText();
 		System.out.println(str);
-		/*String stractual = "×\r\n" + 
-				"Login failed. Please check your username and/or password. If they are correct, your account may be suspended.\r\n" + 
-				"";
-		Assert.assertEquals(str, stractual);
-		String str = driver.getTitle();
-		System.out.println(str);
-		String stractual = "\r\n" + 
-				"                        Welcome to test.cdduk.kycnet.com                    ";*/
-
+		
 		Assert.assertTrue(str.contains("Login failed"));
 	}
 
