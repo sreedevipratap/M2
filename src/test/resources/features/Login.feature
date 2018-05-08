@@ -3,7 +3,7 @@
 
 Feature: Login authentication
   
-
+@Valid
 Scenario Outline: Test Login with Valid credentials
     Given User is on application Home Page
     When User enters valid username "<username>" and password "<password>"
@@ -16,7 +16,7 @@ Examples:
       | Bakkiya | KYCnet123 |
       
      
-
+@Invalid
 Scenario Outline: Test Login with Invalid credentials
     Given User is on application Home Page
     When User enters invalid username "<username>" and password "<password>"
